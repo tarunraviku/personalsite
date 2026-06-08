@@ -3,7 +3,18 @@ const form = document.querySelector("#prompt");
 const input = document.querySelector("#command-input");
 const clock = document.querySelector("#clock");
 
+const commandList = `
+  <nav class="response commands" aria-label="Site commands">
+    <button type="button" data-command="about">about</button>
+    <button type="button" data-command="work">work</button>
+    <button type="button" data-command="links">links</button>
+    <button type="button" data-command="contact">contact</button>
+    <button type="button" data-command="help">help</button>
+    <button type="button" data-command="clear">clear</button>
+  </nav>`;
+
 const responses = {
+  ls: commandList,
   help: `
     <div class="response rows">
       <span>about</span><span>short bio</span>
