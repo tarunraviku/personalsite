@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Tarun Ravikumar - developer and builder."
+    />
+    <title>tarun@personal:~</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="terminal" aria-label="Tarun Ravikumar's personal site">
+      <header>
+        <span>tarun@personal:~</span>
+        <span class="status"><i></i> online</span>
+      </header>
+
+      <section id="output" class="output" aria-live="polite">
+        <div class="entry">
+          <p class="command"><span>~</span> whoami</p>
+          <div class="response identity">
+            <h1>Tarun Ravikumar</h1>
+            <p>developer / builder / curious person</p>
+          </div>
+        </div>
+
+        <div class="entry">
+          <p class="command"><span>~</span> ls</p>
+          <nav class="response commands" aria-label="Site commands">
+            <button type="button" data-command="about">about</button>
+            <button type="button" data-command="work">work</button>
+            <button type="button" data-command="links">links</button>
+            <button type="button" data-command="contact">contact</button>
+          </nav>
+        </div>
+      </section>
+
+      <form id="prompt" class="prompt" autocomplete="off">
+        <label for="command-input"><span>visitor@personal:~$</span></label>
+        <input
+          id="command-input"
+          name="command"
+          type="text"
+          aria-label="Enter a command"
+          autocapitalize="none"
+          spellcheck="false"
+          autofocus
+        />
+      </form>
+
+      <footer>
+        <span>type <button type="button" data-command="help">help</button></span>
+        <time id="clock">00:00:00</time>
+      </footer>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
