@@ -2,12 +2,19 @@ const output = document.querySelector("#output");
 const form = document.querySelector("#prompt");
 const input = document.querySelector("#command-input");
 const clock = document.querySelector("#clock");
+const reader = document.querySelector("#entry-reader");
+const readerContent = document.querySelector("#reader-content");
+const readerPosition = document.querySelector("#reader-position");
+const entries = window.ENTRIES ?? [];
+let activeEntriesList = null;
+let selectedEntryIndex = 0;
+let openEntryIndex = -1;
 
 const commandList = `
   <nav class="response commands" aria-label="Site commands">
     <button type="button" data-command="about">about</button>
     <button type="button" data-command="resume">resume</button>
-    <button type="button" data-command="projects">projects</button>
+    <button type="button" data-command="entries">entries</button>
     <button type="button" data-command="links">links</button>
     <button type="button" data-command="contact">contact</button>
     <button type="button" data-command="help">help</button>
@@ -20,7 +27,7 @@ const responses = {
     <div class="response rows">
       <span>about</span><span>short bio</span>
       <span>resume</span><span>view resume PDF</span>
-      <span>projects</span><span>selected projects</span>
+      <span>entries</span><span>personal notes and writing</span>
       <span>links</span><span>elsewhere online</span>
       <span>contact</span><span>open a channel</span>
       <span>clear</span><span>clear output</span>
@@ -94,6 +101,7 @@ function runCommand(rawCommand) {
   if (!command) return;
 
   if (command === "clear") {
+    activeEntriesList = null;
     output.innerHTML = `
       <div class="entry">
         <p class="response subtle">hint: type <button type="button" data-command="ls">ls</button> to list available commands</p>
@@ -104,13 +112,104 @@ function runCommand(rawCommand) {
   const entry = document.createElement("div");
   entry.className = "entry";
 
-  const response =
-    responses[command] ??
-    `<p class="response error">command not found: ${escapeHtml(command)}</p>`;
+  const response = command === "entries"
+    ? renderEntriesList()
+    : responses[command] ??
+      `<p class="response error">command not found: ${escapeHtml(command)}</p>`;
 
   entry.innerHTML = `<p class="command"><span>~</span> ${escapeHtml(command)}</p>${response}`;
   output.append(entry);
+  activeEntriesList = entry.querySelector(".entries-list");
+  if (activeEntriesList) selectEntry(0, true);
   entry.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function renderEntriesList() {
+  if (!entries.length) {
+    return `<p class="response subtle">no entries yet</p>`;
+  }
+
+  const rows = entries
+    .map(
+      (entry, index) => `
+        <button type="button" class="entry-row" data-entry-index="${index}" role="option">
+          <time>${escapeHtml(entry.date)}</time>
+          <span class="entry-row-title">${escapeHtml(entry.title)}</span>
+          <span class="entry-row-arrow">-&gt;</span>
+        </button>`,
+    )
+    .join("");
+
+  return `
+    <div class="response entries-browser">
+      <div class="entries-list" role="listbox" aria-label="Entries">${rows}</div>
+      <p class="entries-hint">j/k or arrows to move &middot; enter to open</p>
+    </div>`;
+}
+
+function selectEntry(index, shouldFocus = false) {
+  if (!activeEntriesList) return;
+
+  const rows = [...activeEntriesList.querySelectorAll(".entry-row")];
+  selectedEntryIndex = Math.max(0, Math.min(index, rows.length - 1));
+  rows.forEach((row, rowIndex) => {
+    const selected = rowIndex === selectedEntryIndex;
+    row.classList.toggle("selected", selected);
+    row.setAttribute("aria-selected", selected);
+    row.tabIndex = selected ? 0 : -1;
+  });
+  rows[selectedEntryIndex]?.scrollIntoView({ block: "nearest" });
+  if (shouldFocus) rows[selectedEntryIndex]?.focus({ preventScroll: true });
+}
+
+function openEntry(index) {
+  const entry = entries[index];
+  if (!entry) return;
+
+  openEntryIndex = index;
+  readerPosition.textContent = `${String(index + 1).padStart(2, "0")} / ${String(entries.length).padStart(2, "0")}`;
+  readerContent.innerHTML = `
+    <div class="reader-meta">
+      <time>${escapeHtml(entry.date)}</time>
+      <span>${entry.tags.map((tag) => `#${escapeHtml(tag)}`).join(" ")}</span>
+    </div>
+    <h1>${escapeHtml(entry.title)}</h1>
+    <p class="reader-summary">${escapeHtml(entry.summary)}</p>
+    <div class="reader-body">${entry.content.map(renderContentBlock).join("")}</div>`;
+  reader.classList.add("open");
+  reader.setAttribute("aria-hidden", "false");
+  document.body.classList.add("reader-open");
+  reader.scrollTop = 0;
+  reader.querySelector("[data-close-entry]").focus();
+}
+
+function renderContentBlock(block) {
+  if (block.type === "heading") {
+    return `<h2>${escapeHtml(block.text)}</h2>`;
+  }
+
+  if (block.type === "image") {
+    return `
+      <figure>
+        <img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt ?? "")}" />
+        ${block.caption ? `<figcaption>${escapeHtml(block.caption)}</figcaption>` : ""}
+      </figure>`;
+  }
+
+  return `<p>${escapeHtml(block.text)}</p>`;
+}
+
+function closeEntry() {
+  reader.classList.remove("open");
+  reader.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("reader-open");
+  openEntryIndex = -1;
+  const selectedRow = activeEntriesList?.querySelector(".entry-row.selected");
+  if (selectedRow) {
+    selectedRow.focus();
+  } else {
+    input.focus();
+  }
 }
 
 function escapeHtml(value) {
@@ -126,9 +225,45 @@ form.addEventListener("submit", (event) => {
 });
 
 document.addEventListener("click", (event) => {
+  const entryRow = event.target.closest("[data-entry-index]");
+  if (entryRow) {
+    selectedEntryIndex = Number(entryRow.dataset.entryIndex);
+    openEntry(selectedEntryIndex);
+    return;
+  }
+
+  if (event.target.closest("[data-close-entry]")) {
+    closeEntry();
+    return;
+  }
+
   const commandButton = event.target.closest("[data-command]");
   if (commandButton) runCommand(commandButton.dataset.command);
-  if (!event.target.closest("a")) input.focus();
+  if (!event.target.closest("a, button")) input.focus();
+});
+
+document.addEventListener("pointerover", (event) => {
+  const entryRow = event.target.closest("[data-entry-index]");
+  if (entryRow && activeEntriesList?.contains(entryRow)) {
+    selectEntry(Number(entryRow.dataset.entryIndex));
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (reader.classList.contains("open")) {
+    if (event.key === "Escape") closeEntry();
+    return;
+  }
+
+  if (!activeEntriesList?.contains(document.activeElement)) return;
+
+  if (["ArrowDown", "j", "ArrowUp", "k", "Enter"].includes(event.key)) {
+    event.preventDefault();
+  }
+
+  if (event.key === "ArrowDown" || event.key === "j") selectEntry(selectedEntryIndex + 1, true);
+  if (event.key === "ArrowUp" || event.key === "k") selectEntry(selectedEntryIndex - 1, true);
+  if (event.key === "Enter") openEntry(selectedEntryIndex);
 });
 
 function updateClock() {

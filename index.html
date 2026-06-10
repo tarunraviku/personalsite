@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css?v=6" />
+    <link rel="stylesheet" href="style.css?v=8" />
   </head>
   <body>
     <main class="terminal" aria-label="Tarun Ravikumar's personal site">
@@ -37,7 +37,7 @@
           <nav class="response commands" aria-label="Site commands">
             <button type="button" data-command="about">about</button>
             <button type="button" data-command="resume">resume</button>
-            <button type="button" data-command="projects">projects</button>
+            <button type="button" data-command="entries">entries</button>
             <button type="button" data-command="links">links</button>
             <button type="button" data-command="contact">contact</button>
             <button type="button" data-command="help">help</button>
@@ -65,6 +65,15 @@
       </footer>
     </main>
 
-    <script src="script.js?v=19"></script>
+    <section id="entry-reader" class="entry-reader" aria-hidden="true">
+      <header class="reader-header">
+        <button type="button" data-close-entry>[ esc ] close</button>
+        <span id="reader-position"></span>
+      </header>
+      <article id="reader-content" class="reader-content"></article>
+    </section>
+
+    <script src="entries.js?v=3"></script>
+    <script src="script.js?v=21"></script>
   </body>
 </html>
