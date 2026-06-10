@@ -29,18 +29,18 @@ const responses = {
     <div class="response about-copy">
       <section>
         <h2>work</h2>
-        <p>Software Engineer at Oracle Cloud Infrastructure.</p>
-        <p>Recently graduated from the Georgia Institute of Technology (May 2026).</p>
+        <p>Software Engineer at Oracle Cloud Infrastructure</p>
+        <p>Recently graduated from the Georgia Institute of Technology (May 2026)</p>
       </section>
       <section>
         <h2>interests</h2>
-        <p>Open-source software, machine learning, distributed systems, and cloud infrastructure.</p>
-        <p>Interested in startups and new ideas. Reach out to me -> travikumar7@outlook.com :))) </p>
+        <p>Open-source software, machine learning, distributed systems, and cloud infrastructure</p>
+        <p>Interested in startups and new ideas — reach out to me -> travikumar7@outlook.com :))) </p>
       </section>
       <section>
         <h2>other stuff</h2>
-        <p>Passionate about public transit, urban planning, cities, and the built environment.</p>
-        <p>Also interested in photography, Brazilian jiu-jitsu, anime/manga, running, cars (specifically Porsches and BMWs), watches, travel, and trains.</p>
+        <p>Passionate about public transit, urban planning, cities, and the built environment</p>
+        <p>Also interested in photography, Brazilian jiu-jitsu, anime/manga, running, cars (specifically Porsches and BMWs), watches, travel, and trains</p>
       </section>
     </div>`,
   projects: `
