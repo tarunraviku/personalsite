@@ -27,17 +27,18 @@ const responses = {
     <div class="response about-copy">
       <section>
         <h2>work</h2>
-        <p>Recent Georgia Institute of Technology graduate and Software Engineer at Oracle Cloud Infrastructure.</p>
+        <p>Software Engineer at Oracle Cloud Infrastructure.</p>
+        <p>Recently graduated from the Georgia Institute of Technology (May 2026).</p>
       </section>
       <section>
         <h2>interests</h2>
         <p>Open-source software, machine learning, distributed systems, and cloud infrastructure.</p>
-        <p>Startups, new ideas, and building things from scratch.</p>
+        <p>Interested in startups and new ideas. Reach out to me -> travikumar7@outlook.com :))) </p>
       </section>
       <section>
-        <h2>outside work</h2>
+        <h2>other stuff</h2>
         <p>Passionate about public transit, urban planning, cities, and the built environment.</p>
-        <p>Also interested in photography, Brazilian jiu-jitsu, anime/manga, running, cars, watches, travel, and trains.</p>
+        <p>Also interested in photography, Brazilian jiu-jitsu, anime/manga, running, cars (specifically Porsches and BMWs), watches, travel, and trains.</p>
       </section>
     </div>`,
   work: `
@@ -48,8 +49,8 @@ const responses = {
     </div>`,
   links: `
     <div class="response rows">
-      <span>github</span><a href="https://github.com/" target="_blank" rel="noreferrer">github.com/</a>
-      <span>linkedin</span><a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">linkedin.com/</a>
+      <span>github</span><a href="https://github.com/tarunraviku" target="_blank" rel="noreferrer">github.com/tarunraviku</a>
+      <span>linkedin</span><a href="https://www.linkedin.com/in/tarunraviku/" target="_blank" rel="noreferrer">linkedin.com/in/tarunraviku</a>
     </div>`,
   contact: `
     <div class="response">
