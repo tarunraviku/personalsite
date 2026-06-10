@@ -24,9 +24,21 @@ const responses = {
       <span>clear</span><span>clear output</span>
     </div>`,
   about: `
-    <div class="response">
-      <p>I build thoughtful software and explore technology, design, and people.</p>
-      <p class="subtle">interests: creative code, computer vision, interaction, web</p>
+    <div class="response about-copy">
+      <section>
+        <h2>work</h2>
+        <p>Recent Georgia Institute of Technology graduate and Software Engineer at Oracle Cloud Infrastructure.</p>
+      </section>
+      <section>
+        <h2>interests</h2>
+        <p>Open-source software, machine learning, distributed systems, and cloud infrastructure.</p>
+        <p>Startups, new ideas, and building things from scratch.</p>
+      </section>
+      <section>
+        <h2>outside work</h2>
+        <p>Passionate about public transit, urban planning, cities, and the built environment.</p>
+        <p>Also interested in photography, Brazilian jiu-jitsu, anime/manga, running, cars, watches, travel, and trains.</p>
+      </section>
     </div>`,
   work: `
     <div class="response rows">
