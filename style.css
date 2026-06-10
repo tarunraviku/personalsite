@@ -172,6 +172,41 @@ h2 {
   margin-top: 6px;
 }
 
+.work-list {
+  max-width: 760px;
+}
+
+.work-list article + article {
+  margin-top: 36px;
+}
+
+.work-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--dim);
+}
+
+.work-heading h2 {
+  font-size: inherit;
+  font-weight: 500;
+}
+
+.work-heading time,
+.work-stack {
+  color: var(--muted);
+}
+
+.work-list p {
+  margin-top: 8px;
+}
+
+.work-list a {
+  display: inline-block;
+  margin-top: 10px;
+}
+
 .commands {
   display: flex;
   flex-wrap: wrap;
@@ -218,6 +253,12 @@ footer button {
   text-underline-offset: 3px;
 }
 
+.response button {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .error {
   color: var(--accent);
 }
@@ -229,6 +270,10 @@ footer button {
 
   .rows {
     grid-template-columns: 76px 1fr;
+  }
+
+  .work-heading {
+    display: block;
   }
 
 }

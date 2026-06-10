@@ -6,7 +6,8 @@ const clock = document.querySelector("#clock");
 const commandList = `
   <nav class="response commands" aria-label="Site commands">
     <button type="button" data-command="about">about</button>
-    <button type="button" data-command="work">work</button>
+    <button type="button" data-command="resume">resume</button>
+    <button type="button" data-command="projects">projects</button>
     <button type="button" data-command="links">links</button>
     <button type="button" data-command="contact">contact</button>
     <button type="button" data-command="help">help</button>
@@ -18,7 +19,8 @@ const responses = {
   help: `
     <div class="response rows">
       <span>about</span><span>short bio</span>
-      <span>work</span><span>selected projects</span>
+      <span>resume</span><span>view resume PDF</span>
+      <span>projects</span><span>selected projects</span>
       <span>links</span><span>elsewhere online</span>
       <span>contact</span><span>open a channel</span>
       <span>clear</span><span>clear output</span>
@@ -41,11 +43,37 @@ const responses = {
         <p>Also interested in photography, Brazilian jiu-jitsu, anime/manga, running, cars (specifically Porsches and BMWs), watches, travel, and trains.</p>
       </section>
     </div>`,
-  work: `
-    <div class="response rows">
-      <span>01</span><a href="#">project signal</a>
-      <span>02</span><a href="#">interface study</a>
-      <span>03</span><a href="#">archive system</a>
+  projects: `
+    <div class="response work-list">
+      <article>
+        <div class="work-heading">
+          <h2>tochi.one</h2>
+        </div>
+        <p class="work-stack">Next.js / PyTorch / FastAPI / Twilio / Gemini API / shadcn/ui / Vercel</p>
+        <p>A tenant-risk assessment and property screening platform. Built a PyTorch logistic regression system that reduced tenant defaults by 25%, alongside a responsive Next.js interface.</p>
+        <a href="https://www.tochi.one/" target="_blank" rel="noreferrer">[ visit website ]</a>
+      </article>
+      <article>
+        <div class="work-heading">
+          <h2>AdBlockIRL</h2>
+        </div>
+        <p class="work-stack">YOLOv8 / OpenCV / Roboflow / Meta Quest AR</p>
+        <p>An augmented-reality system that detects and censors ads in real time. Trained a custom YOLOv8 model capable of detecting 100+ concurrent advertisements with 5ms latency.</p>
+        <p>Won $2,000 at the Bain Capital Ventures AI Hackathon as the FLORA track winner and Pond prize winner.</p>
+        <a href="https://x.com/Jackyhuang/status/1921365091561202022?s=20" target="_blank" rel="noreferrer">[ view demo ]</a>
+      </article>
+      <article>
+        <div class="work-heading">
+          <h2>PopSign</h2>
+        </div>
+        <p class="work-stack">Unity / ASL recognition</p>
+        <p>An ASL vocabulary mobile game developed in collaboration with NTID and Google. Ported ASL Engine games to Unity and enhanced datasets to improve sign-recognition accuracy.</p>
+        <a href="https://www.popsign.org/" target="_blank" rel="noreferrer">[ project website ]</a>
+      </article>
+    </div>`,
+  resume: `
+    <div class="response">
+      <a href="./resume.pdf" target="_blank" rel="noreferrer">open resume.pdf</a>
     </div>`,
   links: `
     <div class="response rows">
@@ -54,9 +82,11 @@ const responses = {
     </div>`,
   contact: `
     <div class="response">
-      <a href="mailto:hello@example.com">hello@example.com</a>
+      <a href="mailto:travikumar7@outlook.com">travikumar7@outlook.com</a>
     </div>`,
 };
+
+responses.work = responses.projects;
 
 function runCommand(rawCommand) {
   const command = rawCommand.trim().toLowerCase();
@@ -64,7 +94,10 @@ function runCommand(rawCommand) {
   if (!command) return;
 
   if (command === "clear") {
-    output.replaceChildren();
+    output.innerHTML = `
+      <div class="entry">
+        <p class="response subtle">hint: type <button type="button" data-command="ls">ls</button> to list available commands</p>
+      </div>`;
     return;
   }
 
