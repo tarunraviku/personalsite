@@ -14,9 +14,10 @@ const commandList = `
   <nav class="response commands" aria-label="Site commands">
     <button type="button" data-command="about">about</button>
     <button type="button" data-command="resume">resume</button>
-    <button type="button" data-command="entries">entries</button>
     <button type="button" data-command="links">links</button>
     <button type="button" data-command="contact">contact</button>
+    <button type="button" data-command="entries">entries</button>
+    <button type="button" data-command="other">other</button>
     <button type="button" data-command="help">help</button>
     <button type="button" data-command="clear">clear</button>
   </nav>`;
@@ -27,9 +28,10 @@ const responses = {
     <div class="response rows">
       <span>about</span><span>short bio</span>
       <span>resume</span><span>view resume PDF</span>
-      <span>entries</span><span>personal notes and writing</span>
       <span>links</span><span>elsewhere online</span>
       <span>contact</span><span>open a channel</span>
+      <span>entries</span><span>personal notes and writing</span>
+      <span>other</span><span>miscellaneous links</span>
       <span>clear</span><span>clear output</span>
     </div>`,
   about: `
@@ -86,6 +88,10 @@ const responses = {
     <div class="response rows">
       <span>github</span><a href="https://github.com/tarunraviku" target="_blank" rel="noreferrer">github.com/tarunraviku</a>
       <span>linkedin</span><a href="https://www.linkedin.com/in/tarunraviku/" target="_blank" rel="noreferrer">linkedin.com/in/tarunraviku</a>
+    </div>`,
+  other: `
+    <div class="response rows">
+      <span>MAL</span><a href="https://myanimelist.net/animelist/ONETRXGAMING" target="_blank" rel="noreferrer">myanimelist.net/animelist/ONETRXGAMING</a>
     </div>`,
   contact: `
     <div class="response">
