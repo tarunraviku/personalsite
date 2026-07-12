@@ -82,7 +82,7 @@ const responses = {
     </div>`,
   resume: `
     <div class="response">
-      <a href="./resume.pdf" target="_blank" rel="noreferrer">open resume.pdf</a>
+      <a href="./Tarun_Ravikumar_Resume.pdf" target="_blank" rel="noreferrer">open Tarun_Ravikumar_Resume.pdf</a>
     </div>`,
   links: `
     <div class="response rows">

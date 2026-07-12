@@ -19,7 +19,7 @@ This site can be deployed directly with GitHub Pages:
 3. Under **Build and deployment**, select **Deploy from a branch**.
 4. Select the `main` branch and `/ (root)` folder.
 
-The site and `resume.pdf` will be published from the repository root.
+The site and `Tarun_Ravikumar_Resume.pdf` will be published from the repository root.
 
 ## Add an entry
 
