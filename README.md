@@ -48,3 +48,10 @@ Entries live in `entries.js`. Add a new object at the top of `window.ENTRIES`:
 Put entry images in `assets/entries/`. After changing `entries.js`, increase the
 version number on its script URL in `index.html` so deployed visitors receive
 the latest file.
+
+## Add a moment
+
+Put a photo in `assets/photos/`, then add its path, alt text, and caption to
+`photos.js`. The `moments` command selects one photo at random each time
+it is run. Keep original dimensions for the best image quality; large files
+will increase the initial download for visitors.

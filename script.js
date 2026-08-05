@@ -6,6 +6,7 @@ const reader = document.querySelector("#entry-reader");
 const readerContent = document.querySelector("#reader-content");
 const readerPosition = document.querySelector("#reader-position");
 const entries = window.ENTRIES ?? [];
+const photos = window.PHOTOS ?? [];
 let activeEntriesList = null;
 let selectedEntryIndex = 0;
 let openEntryIndex = -1;
@@ -31,6 +32,7 @@ const responses = {
       <span>links</span><span>elsewhere online</span>
       <span>contact</span><span>open a channel</span>
       <span>entries</span><span>personal notes and writing</span>
+      <span>moments</span><span>a randomly selected photo</span>
       <span>other</span><span>miscellaneous links</span>
       <span>clear</span><span>clear output</span>
     </div>`,
@@ -49,7 +51,7 @@ const responses = {
       <section>
         <h2>other stuff</h2>
         <p>Passionate about public transit, urban planning, cities, and the built environment</p>
-        <p>Also interested in photography, Brazilian jiu-jitsu, anime/manga, running, cars (specifically Porsches and BMWs), watches, travel, and trains</p>
+        <p>Also interested in photography, Brazilian jiu-jitsu, Muay Thai, anime/manga(check my mal), running, cars (specifically Porsches and BMWs), watches, travel, and trains</p>
       </section>
     </div>`,
   projects: `
@@ -118,16 +120,29 @@ function runCommand(rawCommand) {
   const entry = document.createElement("div");
   entry.className = "entry";
 
-  const response = command === "entries"
-    ? renderEntriesList()
-    : responses[command] ??
-      `<p class="response error">command not found: ${escapeHtml(command)}</p>`;
+  let response = responses[command];
+  if (command === "entries") response = renderEntriesList();
+  if (command === "moments") response = renderPhotoTimeline();
+  if (!response) response = `<p class="response error">command not found: ${escapeHtml(command)}</p>`;
 
   entry.innerHTML = `<p class="command"><span>~</span> ${escapeHtml(command)}</p>${response}`;
   output.append(entry);
   activeEntriesList = entry.querySelector(".entries-list");
   if (activeEntriesList) selectEntry(0, true);
   entry.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function renderPhotoTimeline() {
+  if (!photos.length) {
+    return `<p class="response subtle">no photos yet — add one to assets/photos/ and photos.js</p>`;
+  }
+
+  const photo = photos[Math.floor(Math.random() * photos.length)];
+  return `
+    <figure class="response photo-timeline">
+      <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.alt ?? "")}" />
+      ${photo.caption ? `<figcaption>${escapeHtml(photo.caption)}</figcaption>` : ""}
+    </figure>`;
 }
 
 function renderEntriesList() {

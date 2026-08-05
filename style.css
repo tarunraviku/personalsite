@@ -224,6 +224,25 @@ h2 {
   gap: 3px 16px;
 }
 
+.photo-timeline {
+  width: min(680px, 100%);
+  margin-bottom: 0;
+}
+
+.photo-timeline img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--dim);
+  filter: saturate(0.85);
+}
+
+.photo-timeline figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
 .entries-browser {
   width: min(760px, calc(100vw - 48px));
 }
